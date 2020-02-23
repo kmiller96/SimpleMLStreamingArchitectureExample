@@ -6,6 +6,11 @@ variable "name" {
   type = string
 }
 
+variable "description" {
+  type = string
+  default = ""
+}
+
 variable "source_bucket" {
   type = string
 }
@@ -16,6 +21,7 @@ variable "source_key" {
 
 variable "environment_variables" {
   type = map
+  default = {}
 }
 
 variable "memory_size" {

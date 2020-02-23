@@ -11,7 +11,7 @@ resource "aws_iam_policy" "inference" {
 }
 
 resource "aws_iam_role_policy_attachment" "inference" {
-    role = module.inference.lambda_role_name
+    role = module.inference_lambda.lambda_role_name
     policy_arn = aws_iam_policy.inference.arn
 }
 
@@ -28,7 +28,7 @@ resource "aws_iam_policy" "reader" {
 }
 
 resource "aws_iam_role_policy_attachment" "reader" {
-    role = module.reader.lambda_role_name
+    role = module.reader_lambda.lambda_role_name
     policy_arn = aws_iam_policy.reader.arn
 }
 
@@ -39,12 +39,12 @@ resource "aws_iam_policy" "writer" {
     policy = templatefile(
         "${path.module}/iam_policies/writer.json",
         {
-            read_queue_arn = module.writer_queue.queue_arn
+            write_queue_arn = module.writer_queue.queue_arn
         }
     )
 }
 
 resource "aws_iam_role_policy_attachment" "writer" {
-    role = module.writer.lambda_role_name
+    role = module.writer_lambda.lambda_role_name
     policy_arn = aws_iam_policy.writer.arn
 }
