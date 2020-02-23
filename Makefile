@@ -4,6 +4,8 @@ init:
 	(exit 1) || echo "We haven't developed this script yet."
 tests:
 	(exit 1) || echo "We haven't built the testing suite yet."
+format:
+	terraform fmt -recursive
 
 build:
 	(exit 1) || echo "We haven't developed this script yet."
