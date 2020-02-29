@@ -3,6 +3,7 @@
 import os
 import datetime
 
+import click
 import pandas as pd
 import boto3
 from tqdm import tqdm
@@ -10,9 +11,11 @@ from tqdm import tqdm
 DYNAMODB_TABLE_NAME = 'real-time-wine-vat-data'
 
 
-def main():
+@click.command()
+@click.option('--amount', type=str, default='small')
+def main(amount):
     try:
-        df = load_data(fpath=os.path.join(os.getcwd(), 'data', 'full.csv'))
+        df = load_data(fpath=os.path.join(os.getcwd(), 'data', f'{amount}.csv'))
         data = format_dataframe(df)
         push_data_to_dynamodb(data)
     except KeyboardInterrupt as e:

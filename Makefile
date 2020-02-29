@@ -2,8 +2,6 @@
 
 init:
 	cd infrastructure/ && terraform init
-fast-tests:
-	python -m pytest tests/ -rs 
 tests:
 	python -m pytest tests/ -rs --all 
 format:
@@ -32,7 +30,9 @@ push:
 infrastructure:
 	cd infrastructure/ && terraform apply -auto-approve
 database:
-	python scripts/fill_dynamodb.py
+	python scripts/fill_dynamodb.py --amount=small
+database-full:
+	python scripts/fill_dynamodb.py --amount=full
 simulation:
 	(exit 1) || echo "We haven't developed this script yet."
 
