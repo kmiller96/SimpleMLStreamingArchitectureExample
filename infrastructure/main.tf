@@ -1,9 +1,15 @@
 module "reader_queue" {
   source = "./modules/sqs"
+
+  resource_prefix = var.resource_prefix
+  name = "writer-sqs-queue"
 }
 
 module "writer_queue" {
   source = "./modules/sqs"
+
+  resource_prefix = var.resource_prefix
+  name = "writer-sqs-queue"
 }
 
 module "inference_lambda" {

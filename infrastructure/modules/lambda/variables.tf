@@ -21,7 +21,7 @@ variable "source_key" {
 
 variable "environment_variables" {
   type = map
-  default = {}
+  default = {foo = ""}
 }
 
 variable "memory_size" {
