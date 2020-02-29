@@ -1,21 +1,37 @@
-.PHONY: init tests build push deploy database simulation notebook-server
+.PHONY: init tests build push infrastructure database simulation notebook-server
 
 init:
-	(exit 1) || echo "We haven't developed this script yet."
+	cd infrastructure/ && terraform init
 tests:
-	(exit 1) || echo "We haven't built the testing suite yet."
+	python -m pytest tests/
+format:
+	terraform fmt -recursive
+	# yapf
 
 build:
-	(exit 1) || echo "We haven't developed this script yet."
+	cd lambdas/inference/ && zip -r ../../.build/lambda/inference.zip . && cd ../..
+	cd lambdas/writer/ && zip -r ../../.build/lambda/writer.zip . && cd ../..
+	cd lambdas/reader/ && zip -r ../../.build/lambda/reader.zip . && cd ../..
 push:
-	(exit 1) || echo "We haven't developed this script yet."
+	aws s3 cp \
+		.build/lambda/inference.zip \
+		s3://kale-miller-source-code/real-time-wine/lambdas/inference.zip
+	aws s3 cp \
+		.build/lambda/reader.zip \
+		s3://kale-miller-source-code/real-time-wine/lambdas/reader.zip
+	aws s3 cp \
+		.build/lambda/writer.zip \
+		s3://kale-miller-source-code/real-time-wine/lambdas/writer.zip
 
-deploy:
-	(exit 1) || echo "We haven't developed this script yet."
+infrastructure:
+	cd infrastructure/ && terraform apply
 database:
 	(exit 1) || echo "We haven't developed this script yet."
 simulation:
 	(exit 1) || echo "We haven't developed this script yet."
+
+destroy:
+	cd infrastructure/ && terraform destroy
 
 notebook-server:
 	jupyter lab --allow-root --no-browser

@@ -65,7 +65,7 @@ Once this is complete, you can standup a copy of the infrastructure using the
 command:
 
 ```
-make deploy
+make infrastructure
 ```
 
 This will create your own copy of the environment within your default AWS
