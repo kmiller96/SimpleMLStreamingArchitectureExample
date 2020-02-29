@@ -13,7 +13,7 @@ def infrastructure(data: bool = True):
 
     tf.apply()
     if data:
-        utils.fill_database(db, sample_path="../test-data/small.csv")
+        utils.fill_database(db, sample_path="../../data/small.csv")
     
     yield tf
 
