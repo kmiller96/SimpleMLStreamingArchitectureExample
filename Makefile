@@ -30,7 +30,7 @@ push:
 infrastructure:
 	cd infrastructure/ && terraform apply
 database:
-	(exit 1) || echo "We haven't developed this script yet."
+	python scripts/fill_dynamodb.py
 simulation:
 	(exit 1) || echo "We haven't developed this script yet."
 
