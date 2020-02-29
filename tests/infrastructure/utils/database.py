@@ -1,6 +1,5 @@
 import boto3
 import pandas as pd
-from tqdm import tqdm
 
 
 def fill_database(table, sample_path):
@@ -28,7 +27,7 @@ def push_data_to_dynamodb(table, data):
     tbl = dynamodb.Table(table)
 
     with tbl.batch_writer() as batch:
-        for entry in tqdm(data):
+        for entry in data:
             batch.put_item(
                 Item = entry
             )

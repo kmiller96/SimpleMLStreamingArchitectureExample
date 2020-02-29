@@ -52,7 +52,6 @@ def log_results():
     table = dynamodb.Table(DYNAMODB_TABLE_NAME)
 
     scan_results = table.scan(
-        TableName = DYNAMODB_TABLE_NAME,
         Select = "COUNT",
     )
 
