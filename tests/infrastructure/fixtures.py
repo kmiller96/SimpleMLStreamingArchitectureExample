@@ -2,16 +2,18 @@ import pytest
 
 from python_terraform import Terraform
 
-from infrastructure.utils import database
+from infrastructure import utils 
 
 tf = Terraform(working_dir='infrastructure/')
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def infrastructure(data: bool = True):
     """Stands up a fresh copy of the Terraform infrastructure to work with."""
+    db = ''  # TODO: Figure out the DB value.
+
     tf.apply()
     if data:
-        fill_database(db, sample_path="../test-data/small.csv")
+        utils.fill_database(db, sample_path="../test-data/small.csv")
     
     yield tf
 
