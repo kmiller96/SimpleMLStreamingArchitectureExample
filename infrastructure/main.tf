@@ -49,6 +49,6 @@ module "database" {
   source = "./modules/dynamodb"
 
   resource_prefix = var.resource_prefix
-  name            = "database"
+  name            = "vat-data"
   description     = "Data store for the IoT data. Chosen for quick read/writes."
 }
