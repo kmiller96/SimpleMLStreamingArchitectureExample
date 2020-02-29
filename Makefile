@@ -1,4 +1,4 @@
-.PHONY: init tests build push deploy database simulation notebook-server
+.PHONY: init tests build push infrastructure database simulation notebook-server
 
 init:
 	cd infrastructure/ && terraform init
@@ -13,7 +13,7 @@ build:
 push:
 	(exit 1) || echo "We haven't developed this script yet."
 
-deploy:
+infrastructure:
 	cd infrastructure/ && terraform apply
 database:
 	(exit 1) || echo "We haven't developed this script yet."
