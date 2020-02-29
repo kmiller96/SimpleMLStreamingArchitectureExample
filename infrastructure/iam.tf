@@ -22,7 +22,9 @@ resource "aws_iam_policy" "reader" {
   policy = templatefile(
     "${path.module}/iam_policies/reader.json",
     {
-      read_queue_arn = module.reader_queue.queue_arn
+      read_queue_arn = module.reader_queue.queue_arn,
+      dynamodb_table_arn = module.database.arn,
+      dynamodb_stream_arn = module.database.stream_arn
     }
   )
 }
