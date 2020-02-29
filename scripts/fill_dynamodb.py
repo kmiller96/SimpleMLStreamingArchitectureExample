@@ -3,6 +3,7 @@
 import os
 import datetime
 
+import click
 import pandas as pd
 import boto3
 from tqdm import tqdm
@@ -10,10 +11,12 @@ from tqdm import tqdm
 DYNAMODB_TABLE_NAME = 'real-time-wine-vat-data'
 
 
-def main():
+@click.command()
+@click.option('-n', '--entries', type=int, default=200)
+def main(entries):
     try:
         df = load_data(fpath=os.path.join(os.getcwd(), 'data', 'full.csv'))
-        data = format_dataframe(df)
+        data = format_dataframe(df, n=entries)
         push_data_to_dynamodb(data)
     except KeyboardInterrupt as e:
         print("Stopping data push...")
@@ -31,8 +34,10 @@ def load_data(fpath):
     return df
 
 
-def format_dataframe(df):
-    return df.to_dict(orient='records')
+def format_dataframe(df, n):
+    rows = df.shape[0]
+    dff = df.sample(min(n, rows))  # Either get entire df or get n.
+    return dff.to_dict(orient='records')
 
 
 def push_data_to_dynamodb(data):
@@ -52,11 +57,11 @@ def log_results():
     table = dynamodb.Table(DYNAMODB_TABLE_NAME)
 
     scan_results = table.scan(
-        TableName = DYNAMODB_TABLE_NAME,
         Select = "COUNT",
     )
 
-    print(f"Entries in table: {scan_results['Count']}")
+    print("\n== RESULTS ==")
+    print(f"Current total entries in table: {scan_results['Count']}")
     return
 
 

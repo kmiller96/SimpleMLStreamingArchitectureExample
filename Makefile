@@ -3,7 +3,7 @@
 init:
 	cd infrastructure/ && terraform init
 tests:
-	python -m pytest tests/
+	python -m pytest tests/ -rs --all 
 format:
 	terraform fmt -recursive
 	yapf lambdas/ \
@@ -28,14 +28,16 @@ push:
 		s3://kale-miller-source-code/real-time-wine/lambdas/writer.zip
 
 infrastructure:
-	cd infrastructure/ && terraform apply
+	cd infrastructure/ && terraform apply -auto-approve
 database:
-	python scripts/fill_dynamodb.py
+	python scripts/fill_dynamodb.py -n 200
+database-full:
+	python scripts/fill_dynamodb.py -n 100000
 simulation:
 	(exit 1) || echo "We haven't developed this script yet."
 
 destroy:
-	cd infrastructure/ && terraform destroy
+	cd infrastructure/ && terraform destroy -auto-approve
 
 notebook-server:
 	jupyter lab --allow-root --no-browser
