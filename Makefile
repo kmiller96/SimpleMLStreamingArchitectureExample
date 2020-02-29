@@ -3,7 +3,7 @@
 init:
 	cd infrastructure/ && terraform init
 tests:
-	python -m pytest tests/
+	python -m pytest tests/ -rs
 format:
 	terraform fmt -recursive
 	yapf lambdas/ \
