@@ -20,5 +20,8 @@ database:
 simulation:
 	(exit 1) || echo "We haven't developed this script yet."
 
+destroy:
+	cd infrastructure/ && terraform destroy
+
 notebook-server:
 	jupyter lab --allow-root --no-browser
