@@ -6,7 +6,11 @@ tests:
 	python -m pytest tests/
 format:
 	terraform fmt -recursive
-	# yapf
+	yapf lambdas/ \
+		--style="google" \
+		--recursive \
+		--in-place \
+		--parallel
 
 build:
 	cd lambdas/inference/ && zip -r ../../.build/lambda/inference.zip . && cd ../..

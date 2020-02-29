@@ -7,7 +7,7 @@ variable "name" {
 }
 
 variable "description" {
-  type = string
+  type    = string
   default = ""
 }
 
@@ -20,8 +20,8 @@ variable "source_key" {
 }
 
 variable "environment_variables" {
-  type = map
-  default = {foo = ""}
+  type    = map
+  default = { foo = "" }
 }
 
 variable "memory_size" {

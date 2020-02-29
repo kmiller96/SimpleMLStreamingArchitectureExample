@@ -1,7 +1,7 @@
 variable "resource_prefix" {
-    type = string
+  type = string
 }
 
 variable "name" {
-    type = string
+  type = string
 }
