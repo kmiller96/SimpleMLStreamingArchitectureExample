@@ -30,9 +30,9 @@ push:
 infrastructure:
 	cd infrastructure/ && terraform apply -auto-approve
 database:
-	python scripts/fill_dynamodb.py --amount=small
+	python scripts/fill_dynamodb.py -n 200
 database-full:
-	python scripts/fill_dynamodb.py --amount=full
+	python scripts/fill_dynamodb.py -n 100000
 simulation:
 	(exit 1) || echo "We haven't developed this script yet."
 

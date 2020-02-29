@@ -12,11 +12,11 @@ DYNAMODB_TABLE_NAME = 'real-time-wine-vat-data'
 
 
 @click.command()
-@click.option('--amount', type=str, default='small')
-def main(amount):
+@click.option('-n', '--entries', type=int, default=200)
+def main(entries):
     try:
-        df = load_data(fpath=os.path.join(os.getcwd(), 'data', f'{amount}.csv'))
-        data = format_dataframe(df)
+        df = load_data(fpath=os.path.join(os.getcwd(), 'data', 'full.csv'))
+        data = format_dataframe(df, n=entries)
         push_data_to_dynamodb(data)
     except KeyboardInterrupt as e:
         print("Stopping data push...")
@@ -34,8 +34,10 @@ def load_data(fpath):
     return df
 
 
-def format_dataframe(df):
-    return df.to_dict(orient='records')
+def format_dataframe(df, n):
+    rows = df.shape[0]
+    dff = df.sample(min(n, rows))  # Either get entire df or get n.
+    return dff.to_dict(orient='records')
 
 
 def push_data_to_dynamodb(data):
@@ -58,7 +60,8 @@ def log_results():
         Select = "COUNT",
     )
 
-    print(f"Entries in table: {scan_results['Count']}")
+    print("\n== RESULTS ==")
+    print(f"Current total entries in table: {scan_results['Count']}")
     return
 
 
