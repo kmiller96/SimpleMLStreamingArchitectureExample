@@ -2,7 +2,7 @@ resource "aws_dynamodb_table" "this" {
     name = "${var.resource_prefix}-${var.name}"
 
     stream_enabled = true 
-    stream_view_type = "KEYS_ONLY"
+    stream_view_type = "NEW_IMAGE"
 
     hash_key = "vatID"
     attribute {
