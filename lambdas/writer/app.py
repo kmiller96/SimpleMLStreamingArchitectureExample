@@ -1,13 +1,14 @@
 """Grabs entries from SQS queue and pushes them into DynamoDB."""
 
+import boto3
 import os
 
-import boto3
+from . import utils
 
-dynamodb = boto3.client('dynamodb')
+dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table(os.environ['DYNAMODB_TABLE_NAME'])
 
-def lambda_handler(event, context):
+def lambda_handler(event, context=None):
     entries = utils.parse_sqs_event(event)
 
     with table.batch_writer() as batch:

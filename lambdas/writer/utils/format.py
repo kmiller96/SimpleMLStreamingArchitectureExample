@@ -1,3 +1,4 @@
 def format_dynamodb_key(entry):
     """Converts from Pandas format to DynamoDB format."""
-    return entry  # Currently nothing to do here.
+    item = {k: str(v) for k, v in entry.items()}
+    return item 
