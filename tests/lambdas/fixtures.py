@@ -19,3 +19,9 @@ def reader_lambda_runtime():
 def dynamodb():
     with open('tests/lambdas/events/dynamodb.json', 'r') as f:
         return json.load(f)
+
+
+@pytest.fixture
+def sqs():
+    with open('tests/lambdas/events/sqs.json', 'r') as f:
+        return json.load(f)
