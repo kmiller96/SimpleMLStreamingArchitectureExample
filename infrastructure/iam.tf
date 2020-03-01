@@ -4,8 +4,8 @@ resource "aws_iam_policy" "inference" {
   policy = templatefile(
     "${path.module}/iam_policies/inference.json",
     {
-      read_queue_arn  = module.reader_queue.queue_arn,
-      write_queue_arn = module.writer_queue.queue_arn
+      read_queue_arn  = module.reader_queue.arn,
+      write_queue_arn = module.writer_queue.arn
     }
   )
 }
@@ -22,7 +22,9 @@ resource "aws_iam_policy" "reader" {
   policy = templatefile(
     "${path.module}/iam_policies/reader.json",
     {
-      read_queue_arn = module.reader_queue.queue_arn
+      read_queue_arn = module.reader_queue.arn,
+      dynamodb_table_arn = module.database.arn,
+      dynamodb_stream_arn = module.database.stream_arn
     }
   )
 }
@@ -39,7 +41,7 @@ resource "aws_iam_policy" "writer" {
   policy = templatefile(
     "${path.module}/iam_policies/writer.json",
     {
-      write_queue_arn = module.writer_queue.queue_arn
+      write_queue_arn = module.writer_queue.arn
     }
   )
 }

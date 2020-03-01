@@ -1,0 +1,30 @@
+{
+    "Records": [
+        {
+            "eventID": "1",
+            "eventVersion": "1.0",
+            "dynamodb": {
+                "SequenceNumber": "222",
+                "Keys": {
+                    "Id": {
+                        "N": "101"
+                    }
+                },
+                "SizeBytes": 59,
+                "NewImage": {
+                    "Message": {
+                        "S": "This item has changed"
+                    },
+                    "Id": {
+                        "N": "101"
+                    }
+                },
+                "StreamViewType": "NEW_IMAGES"
+            },
+            "awsRegion": "ap-southeast-2",
+            "eventName": "MODIFY",
+            "eventSourceARN": "<<<PLACEHOLDER>>>",
+            "eventSource": "aws:dynamodb"
+        }
+    ]
+}

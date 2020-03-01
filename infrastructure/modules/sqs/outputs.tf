@@ -1,11 +1,11 @@
-output "queue_arn" {
+output "arn" {
   value = aws_sqs_queue.this.arn
 }
 
-output "queue_name" {
+output "name" {
   value = "${var.resource_prefix}-${var.name}"
 }
 
-output "queue_url" {
+output "url" {
   value = aws_sqs_queue.this.id
 }
