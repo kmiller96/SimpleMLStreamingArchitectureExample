@@ -2,11 +2,12 @@
 import boto3
 import os
 
-from . import utils 
+from . import utils
 
 QUEUE_URL = os.environ['QUEUE_URL']
 
 sqs = boto3.client('sqs')
+
 
 def lambda_handler(event, context=None):
     table_items = utils.parse_dynamodb_event(event)
@@ -15,12 +16,9 @@ def lambda_handler(event, context=None):
     for item in table_items:
         queue_message = utils.format_message(item)
         response = sqs.send_message(
-            QueueUrl = QUEUE_URL,
-            MessageBody = queue_message,
+            QueueUrl=QUEUE_URL,
+            MessageBody=queue_message,
         )
         responses.append(response)
 
-    return {
-        "Status": 200,
-        "Records": responses
-    }
+    return {"Status": 200, "Records": responses}
