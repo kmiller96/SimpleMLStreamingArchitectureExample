@@ -5,31 +5,48 @@ channels:
 dependencies:
   - _libgcc_mutex=0.1=main
   - _py-xgboost-mutex=2.0=cpu_0
+  - appdirs=1.4.3=py_1
   - asn1crypto=1.2.0=py37_0
   - attrs=19.3.0=py_0
-  - awscli=1.17.13=py37_0
+  - aws-sam-translator=1.20.1=py37_0
+  - aws-xray-sdk=0.95=py_0
+  - awscli=1.18.10=py37_0
   - backcall=0.1.0=py_0
+  - backports=1.0=py_2
+  - backports.tempfile=1.0=py_0
+  - backports.weakref=1.0.post1=py37_1000
   - bleach=3.1.1=py_0
-  - botocore=1.14.13=py_0
+  - boto=2.49.0=py_0
+  - boto3=1.12.10=py_0
+  - botocore=1.15.10=py_0
   - ca-certificates=2019.11.28=hecc5488_0
   - certifi=2019.11.28=py37_0
   - cffi=1.13.0=py37h2e261b9_0
+  - cfn-lint=0.24.4=py37_0
   - chardet=3.0.4=py37_1003
+  - click=7.0=py_0
   - colorama=0.4.3=py_0
   - conda=4.8.2=py37_0
   - conda-package-handling=1.6.0=py37h7b6447c_0
+  - cookies=2.2.1=py_0
   - cryptography=2.8=py37h1ba5d50_0
   - cycler=0.10.0=py_2
   - dbus=1.13.6=he372182_0
   - decorator=4.4.1=py_0
   - defusedxml=0.6.0=py_0
+  - docker-py=4.2.0=py37_0
+  - docker-pycreds=0.4.0=py_0
   - docutils=0.15.2=py37_0
+  - ecdsa=0.13=py_0
   - entrypoints=0.3=py37_1000
   - expat=2.2.9=he1b5a44_2
+  - flask=1.1.1=py_1
   - fontconfig=2.13.1=he4413a7_1000
   - freetype=2.10.0=he983fc9_1
+  - future=0.18.2=py37_0
   - gettext=0.19.8.1=hc5be6a0_1002
   - glib=2.58.3=py37h6f030ca_1002
+  - gmp=6.2.0=he1b5a44_2
   - gst-plugins-base=1.14.5=h0935bb2_2
   - gstreamer=1.14.5=h36ae1b5_2
   - icu=58.2=hf484d3e_1000
@@ -39,12 +56,17 @@ dependencies:
   - ipython=7.12.0=py37h5ca1d4c_0
   - ipython_genutils=0.2.0=py_1
   - ipywidgets=7.5.1=py_0
+  - itsdangerous=1.1.0=py_0
   - jedi=0.16.0=py37_0
   - jinja2=2.11.1=py_0
   - jmespath=0.9.4=py_0
   - joblib=0.14.1=py_0
   - jpeg=9c=h14c3975_1001
   - json5=0.9.0=py_0
+  - jsondiff=1.1.2=py_0
+  - jsonpatch=1.24=py_0
+  - jsonpickle=1.3=py_0
+  - jsonpointer=2.0=py_0
   - jsonschema=3.2.0=py37_0
   - jupyter=1.0.0=py_2
   - jupyter_client=5.3.4=py37_1
@@ -73,7 +95,9 @@ dependencies:
   - matplotlib=3.1.3=py37_0
   - matplotlib-base=3.1.3=py37hef1b27d_0
   - mistune=0.8.4=py37h516909a_1000
+  - mock=3.0.5=py37_0
   - more-itertools=8.2.0=py_0
+  - moto=1.3.14=py_0
   - nbconvert=5.6.1=py37_0
   - nbformat=5.0.4=py_0
   - ncurses=6.1=he6710b0_1
@@ -100,6 +124,7 @@ dependencies:
   - pyasn1=0.4.8=py_0
   - pycosat=0.6.3=py37h14c3975_0
   - pycparser=2.19=py37_0
+  - pycryptodome=3.9.7=py37he80fd80_0
   - pygments=2.5.2=py_0
   - pyopenssl=19.0.0=py37_0
   - pyparsing=2.4.6=py_0
@@ -109,6 +134,8 @@ dependencies:
   - pytest=5.3.5=py37_1
   - python=3.7.4=h265db76_1
   - python-dateutil=2.8.1=py_0
+  - python-jose=2.0.2=py_0
+  - python-terraform=0.10.1=py_0
   - pytz=2019.3=py_0
   - pyyaml=5.1.2=py37h516909a_0
   - pyzmq=18.1.1=py37h1768529_0
@@ -116,6 +143,7 @@ dependencies:
   - qtconsole=4.6.0=py_0
   - readline=7.0=h7b6447c_5
   - requests=2.22.0=py37_0
+  - responses=0.10.11=py_0
   - rsa=3.4.2=py_1
   - ruamel_yaml=0.15.46=py37h14c3975_0
   - s3transfer=0.3.3=py37_0
@@ -127,6 +155,7 @@ dependencies:
   - sip=4.19.8=py37hf484d3e_0
   - six=1.12.0=py37_0
   - sqlite=3.30.0=h7b6447c_0
+  - sshpubkeys=3.1.0=py_0
   - statsmodels=0.11.1=py37h516909a_0
   - terminado=0.8.3=py37_0
   - testpath=0.4.4=py_0
@@ -137,13 +166,18 @@ dependencies:
   - urllib3=1.24.2=py37_0
   - wcwidth=0.1.8=py_0
   - webencodings=0.5.1=py_1
+  - websocket-client=0.57.0=py37_0
+  - werkzeug=1.0.0=py_0
   - wheel=0.33.6=py37_0
   - widgetsnbextension=3.5.1=py37_0
+  - wrapt=1.12.0=py37h516909a_0
   - xgboost=0.90=py37he1b5a44_4
+  - xmltodict=0.12.0=py_0
   - xorg-libxau=1.0.9=h14c3975_0
   - xorg-libxdmcp=1.1.3=h516909a_0
   - xz=5.2.4=h14c3975_4
   - yaml=0.1.7=had09818_2
+  - yapf=0.28.0=py_0
   - zeromq=4.3.2=he1b5a44_2
   - zipp=3.0.0=py_0
   - zlib=1.2.11=h7b6447c_3
