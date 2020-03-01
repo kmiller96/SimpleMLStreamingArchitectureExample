@@ -1,8 +1,13 @@
+Tasks:
+    For the things that I know I need to do but I haven't got around to it.
+    ☐ Update `README.md` to reflect contents of Makefile
+
 Features:
     Anything that would result in a better quality of work.
     ☐ Convert testing suite to work with Docker-simulated lambdas.
     ☐ Setup testing environment with `docker-compose` with SQS queues, DynamoDB, etc.
     ☐ Perform feature engineering prior to model inference.
+    ☐ Make documentation via MkDocs
 
 Bugs:
     Anything odd that you notice should be put here to be looked into later.
