@@ -5,7 +5,7 @@ init:
 	cd infrastructure/ && terraform init
 
 export:
-	conda env export > environment.yaml
+	conda env export --no-builds > environment.yaml
 
 tests:
 	python -m pytest tests/ -rs --all 
