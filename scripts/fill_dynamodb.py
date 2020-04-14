@@ -48,7 +48,7 @@ def push_data_to_dynamodb(data, session):
     dynamodb = session.resource("dynamodb")
     table = dynamodb.Table(DYNAMODB_TABLE_NAME)
 
-    with DYNAMODB_TABLE.batch_writer() as batch:
+    with table.batch_writer() as batch:
         for entry in tqdm(data):
             batch.put_item(Item=entry)
     return
@@ -58,7 +58,7 @@ def log_results(session):
     dynamodb = session.resource("dynamodb")
     table = dynamodb.Table(DYNAMODB_TABLE_NAME)
 
-    scan_results = DYNAMODB_TABLE.scan(Select="COUNT",)
+    scan_results = table.scan(Select="COUNT")
 
     print("\n== RESULTS ==")
     print(f"Current total entries in table: {scan_results['Count']}")
