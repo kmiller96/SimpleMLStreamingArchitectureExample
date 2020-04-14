@@ -1,20 +1,36 @@
 """Makes predictions on the current wine quality."""
 
+import os
 
-# load the model into memory
+import boto3
+
+from . import utils
+
+OUTPUT_QUEUE_URL = os.environ["OUTPUT_QUEUE_URL"]
+MODEL_PATH = os.environ["MODEL_PATH"]
+
+sqs = boto3.client('sqs')
 
 
 def training(event, context=None):
+    raise NotImplementedError(
+        "You can't train in the cloud at the moment. "
+        "Please run the `make train` command in the source code to train locally instead."
+    )
     return 200
 
 
 def inference(event, context=None):
-    # Refresh model if you see the last modified date has changed
+    df = utils.load_dataframe_from_sqs(event)
+    X = utils.preprocess(df)
 
-    # Interpret SQS message
-    # Translate into pandas dataframe
-    # model.predict()
+    model = utils.WineQualityModel().load(path=MODEL_PATH)
+    y_hat = model.predict(X=df)
 
-    # Format message and place into SQS queue
+    responses = []
+    for row in y_hat.to_dict(orient='records'):
+        message = utils.format_message(row)
+        response = sqs.send_message(QueueUrl=OUTPUT_QUEUE_URL, MessageBody=message)
+        responses.append(response)
 
-    return 200
+    return {"Status": 200, "Records": responses}
