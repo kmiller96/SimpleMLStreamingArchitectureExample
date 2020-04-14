@@ -48,6 +48,21 @@ build:
 	cd ../..
 .PHONY: build
 
+push:
+	aws s3 cp \
+		--profile $(AWS_PROFILE) \
+		.build/lambda/model.zip \
+		s3://kalemiller-lambda-source-code/real-time-wine/lambdas/model.zip
+	aws s3 cp \
+		--profile $(AWS_PROFILE) \
+		.build/lambda/reader.zip \
+		s3://kalemiller-lambda-source-code/real-time-wine/lambdas/reader.zip
+	aws s3 cp \
+		--profile $(AWS_PROFILE) \
+		.build/lambda/writer.zip \
+		s3://kalemiller-lambda-source-code/real-time-wine/lambdas/writer.zip
+.PHONY: push
+
 
 
 infrastructure:
