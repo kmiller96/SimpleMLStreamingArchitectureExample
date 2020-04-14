@@ -67,7 +67,7 @@ infrastructure:
 .PHONY: infrastructure
 
 model:
-	python scripts/train_model.py data/full.csv
+	python scripts/train_model.py data/full.csv --k-folds=10
 .PHONY: model
 
 database:

@@ -9,20 +9,20 @@ from utils.model import WineQualityModel
 from utils.preprocessing import preprocess, Xy_split
 
 S3_PATH = "s3://kalemiller-model-artifacts/real-time-wine/model.joblib"
-N_FOLDS = 10
 
 
 @click.command()
 @click.argument("data", type=click.Path(exists=True))
-def main(data):
+@click.option("--k-folds", type=int, default=10)
+def main(data, k_folds):
     """Trains a new ML model and uploads it to S3."""
     df = pd.read_csv(data, sep=";")
     df = preprocess(df)
 
-    results = cross_validate_performance(df=df, n=N_FOLDS)
+    results = cross_validate_performance(df=df, n=k_folds)
     avg_results = average_evaluation_metrics(results)
 
-    print(f"== Model Evaluation Results (Folds: {N_FOLDS}) ==")
+    print(f"== Model Evaluation Results (Folds: {k_folds}) ==")
     for metric, value in avg_results.items():
         print(f"{metric.upper()}: {value}")
     print(f"=================================================")
