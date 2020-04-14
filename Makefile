@@ -30,9 +30,9 @@ format:
 
 build:
 	@echo ""
-	@echo "--> Building the inference lambda..."
-	@cd lambdas/inference/ && \
-		zip -r ../../.build/lambda/inference.zip . -x '*__pycache__/*' && \
+	@echo "--> Building the ML model lambda..."
+	@cd lambdas/model/ && \
+		zip -r ../../.build/lambda/model.zip . -x '*__pycache__/*' && \
 	cd ../..
 
 	@echo ""

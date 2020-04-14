@@ -4,7 +4,11 @@
 # load the model into memory
 
 
-def lambda_handler(event, context):
+def training(event, context):
+    return 200
+
+
+def inference(event, context):
     # Refresh model if you see the last modified date has changed
 
     # Interpret SQS message
