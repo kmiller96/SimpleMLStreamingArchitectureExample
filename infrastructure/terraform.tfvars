@@ -1,5 +1,5 @@
 resource_prefix    = "real-time-wine"
-source_code_bucket = "kale-miller-source-code"
+source_code_bucket = "kalemiller-lambda-source-code"
 
 inference_lambda_source_key = "real-time-wine/lambdas/inference.zip"
 writer_lambda_source_key    = "real-time-wine/lambdas/reader.zip"

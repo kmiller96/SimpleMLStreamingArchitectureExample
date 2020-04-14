@@ -1,4 +1,8 @@
 AWS_PROFILE ?= default
+SOURCE_CODE_BUCKET ?= kalemiller-lambda-source-code
+
+BUILD_DIRECTORY ?= ${PWD}/.build
+export TF_VAR_build_directory=$(BUILD_DIRECTORY)
 
 init:
 	mkdir -p .build/lambda/
@@ -26,44 +30,33 @@ format:
 
 build:
 	@echo ""
-	@echo "--> Building the inference lambda..."
-	@cd lambdas/inference/ && \
-		zip -r ../../.build/lambda/inference.zip . -x '**/__pycache__/*' && \
+	@echo "--> Building the ML model lambda..."
+	@cd lambdas/model/ && \
+		zip -r ../../.build/lambda/model.zip . -x '*__pycache__/*' && \
 	cd ../..
 
 	@echo ""
 	@echo "--> Building the writer lambda..."
 	@cd lambdas/writer/ && \
-		zip -r ../../.build/lambda/writer.zip . -x '**/__pycache__/*' && \
+		zip -r ../../.build/lambda/writer.zip . -x '*__pycache__/*' && \
 	cd ../..
 
 	@echo ""
 	@echo "--> Building the reader lambda..."
 	@cd lambdas/reader/ && \
-		zip -r ../../.build/lambda/reader.zip . -x '**/__pycache__/*' && \
+		zip -r ../../.build/lambda/reader.zip . -x '*__pycache__/*' && \
 	cd ../..
 .PHONY: build
-
-push:
-	@aws s3 cp \
-		--profile $(AWS_PROFILE) \
-		.build/lambda/inference.zip \
-		s3://kale-miller-source-code/real-time-wine/lambdas/inference.zip
-	@aws s3 cp \
-		--profile $(AWS_PROFILE) \
-		.build/lambda/reader.zip \
-		s3://kale-miller-source-code/real-time-wine/lambdas/reader.zip
-	@aws s3 cp \
-		--profile $(AWS_PROFILE) \
-		.build/lambda/writer.zip \
-		s3://kale-miller-source-code/real-time-wine/lambdas/writer.zip
-.PHONY: push
 
 
 
 infrastructure:
 	cd infrastructure/ && terraform apply
 .PHONY: infrastructure
+
+model:
+	python scripts/train_model.py data/full.csv --k-folds=10
+.PHONY: model
 
 database:
 	python scripts/fill_dynamodb.py -n 200

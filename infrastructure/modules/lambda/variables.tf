@@ -11,12 +11,21 @@ variable "description" {
   default = ""
 }
 
+variable "package_path" {
+  type = string
+}
+
 variable "source_bucket" {
   type = string
 }
 
 variable "source_key" {
   type = string
+}
+
+variable "entrypoint" {
+  type    = string
+  default = "app.lambda_handler"
 }
 
 variable "environment_variables" {

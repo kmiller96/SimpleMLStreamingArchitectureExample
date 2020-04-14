@@ -6,6 +6,10 @@ variable "resource_prefix" {
   type = string
 }
 
+variable "build_directory" {
+  type = string
+}
+
 variable "source_code_bucket" {
   type = string
 }

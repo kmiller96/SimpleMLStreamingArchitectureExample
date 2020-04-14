@@ -4,7 +4,8 @@ from lambdas.fixtures import *
 
 
 def test_normal_event(reader_lambda_runtime, dynamodb):
-    from lambdas.reader.app import lambda_handler  # TODO: Migrate this to root level for tests.
+    """Assert that the handler runs without throwing an exception."""
+    from lambdas.reader.app import lambda_handler
 
-    lambda_handler(event=dynamodb)
+    response = lambda_handler(event=dynamodb)
     return
