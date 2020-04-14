@@ -9,7 +9,7 @@ from . import utils
 OUTPUT_QUEUE_URL = os.environ["OUTPUT_QUEUE_URL"]
 MODEL_PATH = os.environ["MODEL_PATH"]
 
-sqs = boto3.client('sqs')
+sqs = boto3.client("sqs")
 
 
 def training(event, context=None):
@@ -28,7 +28,7 @@ def inference(event, context=None):
     y_hat = model.predict(X=df)
 
     responses = []
-    for row in y_hat.to_dict(orient='records'):
+    for row in y_hat.to_dict(orient="records"):
         message = utils.format_message(row)
         response = sqs.send_message(QueueUrl=OUTPUT_QUEUE_URL, MessageBody=message)
         responses.append(response)

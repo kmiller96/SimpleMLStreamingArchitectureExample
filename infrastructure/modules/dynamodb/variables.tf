@@ -2,7 +2,11 @@ variable "resource_prefix" {
   type = string
 }
 
-variable "name" {
+variable "iot_data_table_name" {
+  type = string
+}
+
+variable "quality_table_name" {
   type = string
 }
 

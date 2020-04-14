@@ -6,8 +6,8 @@ import pandas as pd
 def load_dataframe_from_sqs(event):
     rows = [json.loads(message["body"]) for message in event["Records"]]
     df = pd.DataFrame.from_records(rows)
-    df.set_index('vatID', inplace=True)
-    df.drop('quality', axis="columns", errors='ignore', inplace=True)
+    df.set_index("vatID", inplace=True)
+    df.drop("quality", axis="columns", errors="ignore", inplace=True)
     return df
 
 

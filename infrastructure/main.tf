@@ -69,9 +69,10 @@ module "writer_lambda" {
 module "database" {
   source = "./modules/dynamodb"
 
-  resource_prefix = var.resource_prefix
-  name            = "vat-data"
-  description     = "Data store for the IoT data. Chosen for quick read/writes."
+  resource_prefix     = var.resource_prefix
+  iot_data_table_name = "vat-iot-data"
+  quality_table_name  = "vat-quality-data"
+  description         = "Data store for the IoT data. Chosen for quick read/writes."
 }
 
 ################
@@ -81,7 +82,7 @@ module "database" {
 resource "aws_lambda_event_source_mapping" "dynamodb" {
   depends_on = [module.reader_lambda, module.database]
 
-  event_source_arn  = module.database.stream_arn
+  event_source_arn  = module.database.iot_stream_arn
   function_name     = module.reader_lambda.function_arn
   starting_position = "LATEST"
 }

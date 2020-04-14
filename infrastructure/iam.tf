@@ -4,6 +4,7 @@ resource "aws_iam_policy" "inference" {
   policy = templatefile(
     "${path.module}/iam_policies/inference.json",
     {
+      model_artifacts_arn = "arn:aws:s3:::${var.model_artifacts_bucket}/${var.resource_prefix}/*"
       read_queue_arn  = module.reader_queue.arn,
       write_queue_arn = module.writer_queue.arn
     }
@@ -23,8 +24,8 @@ resource "aws_iam_policy" "reader" {
     "${path.module}/iam_policies/reader.json",
     {
       read_queue_arn      = module.reader_queue.arn,
-      dynamodb_table_arn  = module.database.arn,
-      dynamodb_stream_arn = module.database.stream_arn
+      dynamodb_table_arn  = module.database.iot_table_arn,
+      dynamodb_stream_arn = module.database.iot_stream_arn
     }
   )
 }
