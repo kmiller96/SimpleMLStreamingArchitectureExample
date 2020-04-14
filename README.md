@@ -44,6 +44,15 @@ and as such an ad-hoc and manual approach to updating the trained model is
 sufficient.
 
 
+## Requirements
+In order to get this solution working you will require the following installed
+into your system:
+
+- Terraform (>= 0.12)
+- Miniconda or Anaconda package manager
+- AWS Account with credentials
+
+
 ## Installation
 You can install the source code through the `Makefile` utilities. To setup the
 project run:
