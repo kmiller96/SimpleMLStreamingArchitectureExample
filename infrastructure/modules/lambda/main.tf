@@ -16,7 +16,7 @@ resource "aws_lambda_function" "this" {
   description   = var.description
   role          = aws_iam_role.this.arn
 
-  handler     = "app.lambda_handler"
+  handler     = var.entrypoint
   runtime     = "python3.8"
   memory_size = var.memory_size
   timeout     = var.timeout

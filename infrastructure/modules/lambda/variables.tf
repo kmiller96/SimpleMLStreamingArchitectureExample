@@ -23,6 +23,11 @@ variable "source_key" {
   type = string
 }
 
+variable "entrypoint" {
+  type    = string
+  default = "app.lambda_handler"
+}
+
 variable "environment_variables" {
   type    = map
   default = { foo = "" }
