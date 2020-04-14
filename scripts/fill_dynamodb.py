@@ -8,7 +8,8 @@ import pandas as pd
 import boto3
 from tqdm import tqdm
 
-DYNAMODB_TABLE_NAME = "real-time-wine-vat-data"
+DYNAMODB_IOT_TABLE_NAME = "real-time-wine-vat-iot-data"
+DYNAMODB_QUALITY_TABLE_NAME = "real-time-wine-vat-quality-data"
 
 
 @click.command()
@@ -19,9 +20,9 @@ def main(entries, profile):
         session = boto3.Session(profile_name=profile)
 
         df = load_data(fpath=os.path.join(os.getcwd(), "data", "full.csv"))
-        data = format_dataframe(df, n=entries)
+        iot_data, quality_data = format_dataframe(df, n=entries)
 
-        push_data_to_dynamodb(data, session=session)
+        push_data_to_dynamodb(iot_data, session=session)
     except KeyboardInterrupt as e:
         print("Stopping data push...")
     finally:
@@ -41,12 +42,15 @@ def load_data(fpath):
 def format_dataframe(df, n):
     rows = df.shape[0]
     dff = df.sample(min(n, rows))  # Either get entire df or get n.
-    return dff.to_dict(orient="records")
+
+    iot_data = dff.drop('quality', axis="columns").to_dict(orient="records")
+    wine_quality_data = dff.quality.to_frame().to_dict(orient="records")
+    return iot_data, wine_quality_data
 
 
 def push_data_to_dynamodb(data, session):
     dynamodb = session.resource("dynamodb")
-    table = dynamodb.Table(DYNAMODB_TABLE_NAME)
+    table = dynamodb.Table(DYNAMODB_IOT_TABLE_NAME)
 
     with table.batch_writer() as batch:
         for entry in tqdm(data):
@@ -56,12 +60,12 @@ def push_data_to_dynamodb(data, session):
 
 def log_results(session):
     dynamodb = session.resource("dynamodb")
-    table = dynamodb.Table(DYNAMODB_TABLE_NAME)
+    table = dynamodb.Table(DYNAMODB_IOT_TABLE_NAME)
 
     scan_results = table.scan(Select="COUNT")
 
     print("\n== RESULTS ==")
-    print(f"Current total entries in table: {scan_results['Count']}")
+    print(f"Current total entries in IoT table: {scan_results['Count']}")
     return
 
 
