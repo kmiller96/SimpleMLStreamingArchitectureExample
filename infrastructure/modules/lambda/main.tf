@@ -24,6 +24,7 @@ resource "aws_lambda_function" "this" {
     variables = var.environment_variables
   }
 
-  s3_bucket = var.source_bucket
-  s3_key    = var.source_key
+  s3_bucket        = var.source_bucket
+  s3_key           = var.source_key
+  source_code_hash = aws_s3_bucket_object.package.etag
 }
