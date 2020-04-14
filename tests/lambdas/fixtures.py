@@ -24,7 +24,7 @@ def writer_lambda_runtime():
 def model_lambda_runtime():
     os.environ["OUTPUT_QUEUE_URL"] = stack["writer_queue_url"]["value"]
     os.environ["MODEL_PATH"] = "s3://kalemiller-model-artifacts/real-time-wine/model.joblib"
-    yield  # TODO
+    yield 
     del os.environ["OUTPUT_QUEUE_URL"] 
     del os.environ["MODEL_PATH"]
 
