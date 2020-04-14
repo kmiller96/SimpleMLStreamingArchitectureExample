@@ -27,6 +27,11 @@ module "inference_lambda" {
   package_path  = "${var.build_directory}/lambda/model.zip"
   source_bucket = var.source_code_bucket
   source_key    = var.inference_lambda_source_key
+
+  environment_variables = {
+    OUTPUT_QUEUE_URL = module.writer_queue.url
+    MODEL_PATH = "s3://kalemiller-model-artifacts/real-time-wine/model.joblib"
+  }
 }
 
 module "training_lambda" {
@@ -40,6 +45,11 @@ module "training_lambda" {
   package_path  = "${var.build_directory}/lambda/model.zip"
   source_bucket = var.source_code_bucket
   source_key    = var.inference_lambda_source_key
+
+  environment_variables = {
+    OUTPUT_QUEUE_URL = module.writer_queue.url
+    MODEL_PATH = "s3://kalemiller-model-artifacts/real-time-wine/model.joblib"
+  }
 }
 
 module "reader_lambda" {
@@ -52,6 +62,10 @@ module "reader_lambda" {
   package_path  = "${var.build_directory}/lambda/reader.zip"
   source_bucket = var.source_code_bucket
   source_key    = var.reader_lambda_source_key
+
+  environment_variables = {
+    QUEUE_URL = module.reader_queue.url
+  }
 }
 
 module "writer_lambda" {
@@ -64,6 +78,10 @@ module "writer_lambda" {
   package_path  = "${var.build_directory}/lambda/writer.zip"
   source_bucket = var.source_code_bucket
   source_key    = var.writer_lambda_source_key
+
+  environment_variables = {
+    DYNAMODB_TABLE_NAME = module.database.quality_table_name
+  }
 }
 
 module "database" {
