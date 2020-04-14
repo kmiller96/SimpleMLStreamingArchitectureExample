@@ -4,7 +4,10 @@ import os
 
 import boto3
 
-from . import utils
+try:
+    import utils
+except ImportError:
+    from . import utils
 
 OUTPUT_QUEUE_URL = os.environ["OUTPUT_QUEUE_URL"]
 MODEL_PATH = os.environ["MODEL_PATH"]

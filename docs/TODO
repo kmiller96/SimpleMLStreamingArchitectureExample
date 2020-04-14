@@ -12,3 +12,4 @@ Features:
 
 Bugs:
     Anything odd that you notice should be put here to be looked into later.
+    [ ] Test lambdas either out of the cloud or in a local runtime to remove hacky fix on import statement.

@@ -3,7 +3,10 @@
 import boto3
 import os
 
-from . import utils
+try:
+    import utils
+except ImportError:
+    from . import utils
 
 dynamodb = boto3.resource("dynamodb")
 table = dynamodb.Table(os.environ["DYNAMODB_TABLE_NAME"])
