@@ -4,9 +4,9 @@ import os
 
 from . import utils
 
-QUEUE_URL = os.environ['QUEUE_URL']
+QUEUE_URL = os.environ["QUEUE_URL"]
 
-sqs = boto3.client('sqs')
+sqs = boto3.client("sqs")
 
 
 def lambda_handler(event, context=None):
@@ -15,10 +15,7 @@ def lambda_handler(event, context=None):
     responses = []
     for item in table_items:
         queue_message = utils.format_message(item)
-        response = sqs.send_message(
-            QueueUrl=QUEUE_URL,
-            MessageBody=queue_message,
-        )
+        response = sqs.send_message(QueueUrl=QUEUE_URL, MessageBody=queue_message,)
         responses.append(response)
 
     return {"Status": 200, "Records": responses}
