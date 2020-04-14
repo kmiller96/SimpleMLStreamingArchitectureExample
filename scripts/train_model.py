@@ -58,9 +58,8 @@ def average_evaluation_metrics(results):
         total = sum([fold[metric_key] for fold in results])
         avg = total / n_folds
         averages[metric_key] = avg
-    
-    return averages
 
+    return averages
 
 
 if __name__ == "__main__":

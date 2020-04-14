@@ -19,9 +19,7 @@ def split_s3_uri(path):
 
 
 class WineQualityModel:
-    model_defaults = dict(
-        objective="reg:squarederror"
-    )
+    model_defaults = dict(objective="reg:squarederror")
 
     def __init__(self, **kwargs):
         hyperparameters = {**self.model_defaults, **kwargs}
@@ -45,7 +43,7 @@ class WineQualityModel:
         return results_dict
 
     def save(self, path):
-        s3 = boto3.client('s3')
+        s3 = boto3.client("s3")
 
         with tempfile.TemporaryFile() as fp:
             joblib.dump(self._model, fp)
@@ -57,7 +55,7 @@ class WineQualityModel:
         return self
 
     def load(self, path):
-        s3 = boto3.client('s3')
+        s3 = boto3.client("s3")
 
         with tempfile.TemporaryFile() as fp:
             bucket, key = split_s3_uri(path)
