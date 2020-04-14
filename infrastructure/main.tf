@@ -104,3 +104,17 @@ resource "aws_lambda_event_source_mapping" "dynamodb" {
   function_name     = module.reader_lambda.function_arn
   starting_position = "LATEST"
 }
+
+resource "aws_lambda_event_source_mapping" "reader_to_inference" {
+  depends_on = [module.reader_lambda, module.database]
+
+  event_source_arn  = module.reader_queue.arn
+  function_name     = module.inference_lambda.function_arn
+}
+
+resource "aws_lambda_event_source_mapping" "inference_to_writer" {
+  depends_on = [module.reader_lambda, module.database]
+
+  event_source_arn  = module.writer_queue.arn
+  function_name     = module.writer_lambda.function_arn
+}
