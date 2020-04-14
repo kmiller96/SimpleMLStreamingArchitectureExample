@@ -1,3 +1,7 @@
+#############
+## Modules ##
+#############
+
 module "reader_queue" {
   source = "./modules/sqs"
 
@@ -52,6 +56,10 @@ module "database" {
   name            = "vat-data"
   description     = "Data store for the IoT data. Chosen for quick read/writes."
 }
+
+################
+## Event Maps ##
+################
 
 resource "aws_lambda_event_source_mapping" "dynamodb" {
   depends_on = [module.reader_lambda, module.database]
