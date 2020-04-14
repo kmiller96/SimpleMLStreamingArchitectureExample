@@ -4,11 +4,11 @@
 # load the model into memory
 
 
-def training(event, context):
+def training(event, context=None):
     return 200
 
 
-def inference(event, context):
+def inference(event, context=None):
     # Refresh model if you see the last modified date has changed
 
     # Interpret SQS message

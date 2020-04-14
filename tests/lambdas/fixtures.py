@@ -21,6 +21,10 @@ def writer_lambda_runtime():
     del os.environ['DYNAMODB_TABLE_NAME']
 
 @pytest.fixture
+def model_lambda_runtime():
+    yield  # TODO
+
+@pytest.fixture
 def dynamodb():
     with open('tests/lambdas/events/dynamodb.json', 'r') as f:
         return json.load(f)
