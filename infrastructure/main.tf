@@ -30,6 +30,7 @@ module "inference_lambda" {
   environment_variables = {
     OUTPUT_QUEUE_URL = module.writer_queue.url
     MODEL_PATH = "s3://kalemiller-model-artifacts/real-time-wine/model.joblib"
+    LOGGER_LEVEL = "DEBUG"
   }
 }
 
@@ -47,6 +48,7 @@ module "training_lambda" {
   environment_variables = {
     OUTPUT_QUEUE_URL = module.writer_queue.url
     MODEL_PATH = "s3://kalemiller-model-artifacts/real-time-wine/model.joblib"
+    LOGGER_LEVEL = "DEBUG"
   }
 }
 
@@ -62,6 +64,7 @@ module "reader_lambda" {
 
   environment_variables = {
     QUEUE_URL = module.reader_queue.url
+    LOGGER_LEVEL = "DEBUG"
   }
 }
 
@@ -77,6 +80,7 @@ module "writer_lambda" {
 
   environment_variables = {
     DYNAMODB_TABLE_NAME = module.database.quality_table_name
+    LOGGER_LEVEL = "DEBUG"
   }
 }
 
@@ -102,14 +106,14 @@ resource "aws_lambda_event_source_mapping" "dynamodb" {
 }
 
 resource "aws_lambda_event_source_mapping" "reader_to_inference" {
-  depends_on = [module.reader_lambda, module.database]
+  depends_on = [module.reader_lambda, module.inference_lambda]
 
   event_source_arn  = module.reader_queue.arn
   function_name     = module.inference_lambda.function_arn
 }
 
 resource "aws_lambda_event_source_mapping" "inference_to_writer" {
-  depends_on = [module.reader_lambda, module.database]
+  depends_on = [module.inference_lambda, module.writer_lambda]
 
   event_source_arn  = module.writer_queue.arn
   function_name     = module.writer_lambda.function_arn
