@@ -47,7 +47,7 @@ push:
 
 
 infrastructure:
-	cd infrastructure/ && terraform apply -auto-approve
+	cd infrastructure/ && terraform apply
 .PHONY: infrastructure
 
 database:
@@ -65,7 +65,7 @@ simulation:
 
 
 destroy:
-	cd infrastructure/ && terraform destroy -auto-approve
+	cd infrastructure/ && terraform destroy 
 .PHONY: destroy
 
 
