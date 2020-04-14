@@ -16,7 +16,7 @@ def reader_lambda_runtime():
 
 @pytest.fixture
 def writer_lambda_runtime():
-    os.environ['DYNAMODB_TABLE_NAME'] = stack['dynamodb_table']['value']
+    os.environ['DYNAMODB_TABLE_NAME'] = stack['dynamodb_quality_table_name']['value']
     yield
     del os.environ['DYNAMODB_TABLE_NAME']
 
