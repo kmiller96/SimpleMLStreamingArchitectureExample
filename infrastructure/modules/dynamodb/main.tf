@@ -24,6 +24,12 @@ resource "aws_dynamodb_table" "quality" {
     type = "S"
   }
 
+  range_key = "timestamp_in_seconds"
+  attribute {
+    name = "timestamp_in_seconds"
+    type = "N"
+  }
+
   write_capacity = 1
   read_capacity  = 1
 }
