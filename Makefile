@@ -1,6 +1,7 @@
 AWS_PROFILE ?= default
 
 init:
+	mkdir -p .build/lambda/
 	conda env update --file environment.yaml --name real-time-wine --prune 
 	cd infrastructure/ && terraform init
 	@echo ""
@@ -24,21 +25,35 @@ format:
 
 
 build:
-	cd lambdas/inference/ && zip -r ../../.build/lambda/inference.zip . && cd ../..
-	cd lambdas/writer/ && zip -r ../../.build/lambda/writer.zip . && cd ../..
-	cd lambdas/reader/ && zip -r ../../.build/lambda/reader.zip . && cd ../..
+	@echo ""
+	@echo "--> Building the inference lambda..."
+	@cd lambdas/inference/ && \
+		zip -r ../../.build/lambda/inference.zip . -x '**/__pycache__/*' && \
+	cd ../..
+
+	@echo ""
+	@echo "--> Building the writer lambda..."
+	@cd lambdas/writer/ && \
+		zip -r ../../.build/lambda/writer.zip . -x '**/__pycache__/*' && \
+	cd ../..
+
+	@echo ""
+	@echo "--> Building the reader lambda..."
+	@cd lambdas/reader/ && \
+		zip -r ../../.build/lambda/reader.zip . -x '**/__pycache__/*' && \
+	cd ../..
 .PHONY: build
 
 push:
-	aws s3 cp \
+	@aws s3 cp \
 		--profile $(AWS_PROFILE) \
 		.build/lambda/inference.zip \
 		s3://kale-miller-source-code/real-time-wine/lambdas/inference.zip
-	aws s3 cp \
+	@aws s3 cp \
 		--profile $(AWS_PROFILE) \
 		.build/lambda/reader.zip \
 		s3://kale-miller-source-code/real-time-wine/lambdas/reader.zip
-	aws s3 cp \
+	@aws s3 cp \
 		--profile $(AWS_PROFILE) \
 		.build/lambda/writer.zip \
 		s3://kale-miller-source-code/real-time-wine/lambdas/writer.zip
