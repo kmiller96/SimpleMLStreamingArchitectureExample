@@ -26,6 +26,10 @@ format:
 	black lambdas/ scripts/
 .PHONY: format
 
+notebook-server:
+	jupyter lab --allow-root --no-browser
+.PHONY: notebook-server
+
 
 
 build:
@@ -73,6 +77,10 @@ model:
 	python scripts/train_model.py data/full.csv --k-folds=10
 .PHONY: model
 
+one:
+	python scripts/fill_dynamodb.py -n 1
+.PHONY: database
+
 database:
 	python scripts/fill_dynamodb.py -n 200
 .PHONY: database
@@ -90,13 +98,9 @@ simulation:
 .PHONY: simulation
 
 
+deploy: build push infrastructure database
+.PHONY: deploy
 
 destroy:
 	cd infrastructure/ && terraform destroy 
 .PHONY: destroy
-
-
-
-notebook-server:
-	jupyter lab --allow-root --no-browser
-.PHONY: notebook-server
