@@ -66,6 +66,10 @@ infrastructure:
 	cd infrastructure/ && terraform apply
 .PHONY: infrastructure
 
+model:
+	python scripts/train_model.py data/full.csv
+.PHONY: model
+
 database:
 	python scripts/fill_dynamodb.py -n 200
 .PHONY: database
