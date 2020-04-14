@@ -11,6 +11,10 @@ variable "description" {
   default = ""
 }
 
+variable "package_path" {
+  type = string
+}
+
 variable "source_bucket" {
   type = string
 }

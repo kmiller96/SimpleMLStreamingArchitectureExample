@@ -23,6 +23,7 @@ module "inference_lambda" {
   name            = "inference-lambda"
   description     = "Makes inferences on the dataframe passed into the lambda."
 
+  package_path  = "${var.build_directory}/lambda/inference.zip"
   source_bucket = var.source_code_bucket
   source_key    = var.inference_lambda_source_key
 }
@@ -34,6 +35,7 @@ module "reader_lambda" {
   name            = "reader-lambda"
   description     = "Fetches newly changed entries in DynamoDB."
 
+  package_path  = "${var.build_directory}/lambda/inference.zip"
   source_bucket = var.source_code_bucket
   source_key    = var.reader_lambda_source_key
 }
@@ -45,6 +47,7 @@ module "writer_lambda" {
   name            = "writer-lambda"
   description     = "Writes updated quality inferences back into DynamoDB."
 
+  package_path  = "${var.build_directory}/lambda/inference.zip"
   source_bucket = var.source_code_bucket
   source_key    = var.writer_lambda_source_key
 }

@@ -1,6 +1,9 @@
 AWS_PROFILE ?= default
 SOURCE_CODE_BUCKET ?= kalemiller-lambda-source-code
 
+BUILD_DIRECTORY ?= ${PWD}/.build
+export TF_VAR_build_directory=$(BUILD_DIRECTORY)
+
 init:
 	mkdir -p .build/lambda/
 	conda env update --file environment.yaml --name real-time-wine --prune 
@@ -44,21 +47,6 @@ build:
 		zip -r ../../.build/lambda/reader.zip . -x '*__pycache__/*' && \
 	cd ../..
 .PHONY: build
-
-push:
-	@aws s3 cp \
-		--profile $(AWS_PROFILE) \
-		.build/lambda/inference.zip \
-		"s3://$(SOURCE_CODE_BUCKET)/real-time-wine/lambdas/inference.zip"
-	@aws s3 cp \
-		--profile $(AWS_PROFILE) \
-		.build/lambda/reader.zip \
-		"s3://$(SOURCE_CODE_BUCKET)/real-time-wine/lambdas/reader.zip"
-	@aws s3 cp \
-		--profile $(AWS_PROFILE) \
-		.build/lambda/writer.zip \
-		"s3://$(SOURCE_CODE_BUCKET)/real-time-wine/lambdas/writer.zip"
-.PHONY: push
 
 
 
